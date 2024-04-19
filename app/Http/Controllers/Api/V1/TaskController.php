@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Http\Resources\TaskResource;
 
 class TaskController extends Controller
 {
@@ -16,18 +17,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return Task::all();
+        return TaskResource::collection(Task::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -37,7 +29,9 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-        //
+        $task = Task::create($request->validate());
+
+        return TaskResource::make($task);
     }
 
     /**
@@ -48,19 +42,10 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        return TaskResource::make($task);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Task $task)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -71,17 +56,23 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        //
+        $task->update($request->validate());
+
+        return TaskResource::make($task);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
      */
+    //  @return \Illuminate\Http\Response
+
+
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+
+        return response()->noContent();
     }
 }
