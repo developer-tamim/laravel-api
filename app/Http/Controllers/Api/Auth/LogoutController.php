@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -15,6 +15,7 @@ class LogoutController extends Controller
     //  @return \Illuminate\Http\Response
     public function __invoke(Request $request)
     {
-        auth()->guard('web')->logout();
+        // auth()->guard('web')->logout();
+        $request->user()->currentAccessToken()->delete();
     }
 }
