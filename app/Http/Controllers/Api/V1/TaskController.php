@@ -10,36 +10,38 @@ use App\Http\Resources\TaskResource;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    //@return \Illuminate\Http\Response
     public function index()
     {
         return TaskResource::collection(Task::all());
     }
 
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreTaskRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+
+    //   @param  \App\Http\Requests\StoreTaskRequest  $request
+    //   @return \Illuminate\Http\Response
+
     public function store(StoreTaskRequest $request)
     {
-        $task = Task::create($request->validate());
 
-        return TaskResource::make($task);
+        // $task = Task::create($request->validate());
+
+        // return TaskResource::make($task);
+
+            $validatedData = $request->validate();
+
+            $task = Task::create($validatedData);
+
+            return TaskResource::make($task);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
-     */
+
+
+
+    //   @param  \App\Models\Task  $task
+    //   @return \Illuminate\Http\Response
+
     public function show(Task $task)
     {
         return TaskResource::make($task);
@@ -47,13 +49,11 @@ class TaskController extends Controller
 
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateTaskRequest  $request
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
-     */
+
+    //   @param  \App\Http\Requests\UpdateTaskRequest  $request
+    //   @param  \App\Models\Task  $task
+    //   @return \Illuminate\Http\Response
+
     public function update(UpdateTaskRequest $request, Task $task)
     {
         $task->update($request->validate());
@@ -61,11 +61,10 @@ class TaskController extends Controller
         return TaskResource::make($task);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Task  $task
-     */
+
+
+    //  @param  \App\Models\Task  $task
+
     //  @return \Illuminate\Http\Response
 
 

@@ -21,8 +21,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-require __DIR__ . '/api/v1.php';
+// require __DIR__ . '/api/v1.php';
 require __DIR__ . '/api/v2.php';
+
+Route::prefix('v1')->group(function(){
+    Route::apiResource('/tasks', TaskController::class);
+    // Route::patch('/tasks/{task}/complete', CompleteTaskController::class);
+});
 
 
 Route::prefix('auth')->group(function(){
